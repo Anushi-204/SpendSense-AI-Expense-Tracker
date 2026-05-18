@@ -38,8 +38,6 @@ http://127.0.0.1:5000
 ## Benefits
 - Improves financial tracking
 - Uses AI/ML concepts
-- Full Stack development project
-- Good for resume and portfolio
 
 ## Future Improvements
 - Mobile App
