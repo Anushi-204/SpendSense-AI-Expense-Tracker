@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if mode == 'register' %}Create Account{% else %}Sign In{% endif %} – SpendSense</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d; --paper: #f5f2eb; --accent: #e84b3a;
+    --muted: #6b6659; --card: #ffffff; --border: #ddd9ce;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink);
+    display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+
+  .auth-wrap { display: grid; grid-template-columns: 1fr 1fr; max-width: 900px; width: 95%; background: var(--card); border: 1px solid var(--border); border-radius: 24px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.08); }
+
+  .auth-side { background: var(--ink); padding: 3rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .auth-side-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: #fff; }
+  .auth-side-logo span { color: var(--accent); }
+  .auth-side-headline { color: #fff; }
+  .auth-side-headline h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.8rem; }
+  .auth-side-headline p { color: #888; font-size: 0.9rem; line-height: 1.6; }
+  .auth-side-features { list-style: none; }
+  .auth-side-features li { color: #ccc; font-size: 0.85rem; padding: 0.4rem 0; display: flex; align-items: center; gap: 0.6rem; }
+  .auth-side-features li::before { content: '✦'; color: var(--accent); font-size: 0.6rem; }
+
+  .auth-form { padding: 3rem; }
+  .auth-form h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+  .auth-form .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+  .auth-form .subtitle a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+  .error-box { background: #fff3f2; border: 1px solid #fde0dc; border-radius: 10px; padding: 0.8rem 1rem; color: #c62828; font-size: 0.85rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+
+  .field { margin-bottom: 1.2rem; }
+  .field label { display: block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .field input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--ink); background: var(--paper); outline: none; transition: border-color 0.2s; }
+  .field input:focus { border-color: var(--ink); background: #fff; }
+
+  .btn-submit { width: 100%; background: var(--ink); color: #fff; border: none; padding: 0.9rem; border-radius: 100px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.2s; margin-top: 0.5rem; }
+  .btn-submit:hover { background: var(--accent); }
+
+  .back-link { display: block; text-align: center; margin-top: 1.5rem; color: var(--muted); font-size: 0.85rem; text-decoration: none; }
+  .back-link:hover { color: var(--ink); }
+
+  @media (max-width: 650px) {
+    .auth-side { display: none; }
+    .auth-wrap { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-side">
+    <div class="auth-side-logo">Spend<span>Sense</span></div>
+    <div class="auth-side-headline">
+      <h2>AI-Powered<br>Expense Tracking</h2>
+      <p>Make smarter financial decisions with machine learning insights.</p>
+    </div>
+    <ul class="auth-side-features">
+      <li>ML expense predictions</li>
+      <li>Smart budget suggestions</li>
+      <li>Real-time spending alerts</li>
+      <li>Beautiful visual reports</li>
+      <li>Secure & private</li>
+    </ul>
+  </div>
+
+  <div class="auth-form">
+    {% if mode == 'register' %}
+      <h1>Create Account</h1>
+      <p class="subtitle">Already registered? <a href="/login">Sign in →</a></p>
+      {% if error %}
+      <div class="error-box">⚠ {{ error }}</div>
+      {% endif %}
+      <form method="POST" action="/register">
+        <div class="field"><label>Username</label><input type="text" name="username" placeholder="yourname" required autocomplete="off"></div>
+        <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@email.com" required></div>
+        <div class="field"><label>Password</label><input type="password" name="password" placeholder="••••••••" required></div>
+        <button type="submit" class="btn-submit">Create Account →</button>
+      </form>
+    {% else %}
+      <h1>Welcome Back</h1>
+      <p class="subtitle">New here? <a href="/register">Create an account →</a></p>
+      {% if error %}
+      <div class="error-box">⚠ {{ error }}</div>
+      {% endif %}
+      <form method="POST" action="/login">
+        <div class="field"><label>Username</label><input type="text" name="username" placeholder="yourname" required autocomplete="off"></div>
+        <div class="field"><label>Password</label><input type="password" name="password" placeholder="••••••••" required></div>
+        <button type="submit" class="btn-submit">Sign In →</button>
+      </form>
+    {% endif %}
+    <a class="back-link" href="/">← Back to home</a>
+  </div>
+</div>
+</body>
+</html>

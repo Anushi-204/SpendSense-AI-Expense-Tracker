@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpendSense – AI Expense Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f2eb;
+    --accent: #e84b3a;
+    --gold: #c9a84c;
+    --muted: #6b6659;
+    --card: #ffffff;
+    --border: #ddd9ce;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); overflow-x: hidden; }
+
+  /* NAV */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; border-bottom: 1px solid var(--border); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+  .logo span { color: var(--accent); }
+  .nav-links a { margin-left: 2rem; text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links .btn-nav { background: var(--ink); color: var(--paper); padding: 0.5rem 1.4rem; border-radius: 100px; }
+  .nav-links .btn-nav:hover { background: var(--accent); color: #fff; }
+
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; padding: 6rem 4rem; align-items: center; min-height: 85vh; }
+  .hero-label { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.3rem 0.9rem; border-radius: 100px; margin-bottom: 1.5rem; }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { color: var(--muted); font-size: 1.1rem; line-height: 1.7; max-width: 440px; margin-bottom: 2.5rem; }
+  .hero-btns { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary { background: var(--ink); color: var(--paper); padding: 0.85rem 2rem; border-radius: 100px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: all 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-ghost { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 0.4rem; }
+  .btn-ghost:hover { color: var(--ink); }
+
+  /* HERO VISUAL */
+  .hero-visual { position: relative; }
+  .dashboard-preview { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 1.5rem; box-shadow: 0 20px 60px rgba(0,0,0,0.08); transform: perspective(1000px) rotateY(-8deg) rotateX(3deg); transition: transform 0.4s; }
+  .dashboard-preview:hover { transform: perspective(1000px) rotateY(-4deg) rotateX(1deg); }
+  .dp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+  .dp-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; }
+  .dp-badge { font-size: 0.7rem; background: #e8f5e9; color: #2e7d32; padding: 0.2rem 0.6rem; border-radius: 100px; }
+  .dp-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1.2rem; }
+  .dp-stat { background: var(--paper); border-radius: 12px; padding: 1rem; }
+  .dp-stat-label { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.3rem; font-weight: 500; }
+  .dp-stat-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem; }
+  .dp-stat-value.accent { color: var(--accent); }
+  .dp-bars { margin-bottom: 1rem; }
+  .dp-bar-row { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.6rem; }
+  .dp-bar-label { font-size: 0.72rem; color: var(--muted); width: 70px; flex-shrink: 0; }
+  .dp-bar-track { flex: 1; height: 6px; background: var(--paper); border-radius: 10px; overflow: hidden; }
+  .dp-bar-fill { height: 100%; border-radius: 10px; animation: grow 1.2s ease forwards; transform-origin: left; }
+  @keyframes grow { from { width: 0; } }
+  .dp-ai { background: linear-gradient(135deg, #fff3f2, #fff); border: 1px solid #fde0dc; border-radius: 12px; padding: 0.9rem; }
+  .dp-ai-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+  .dp-ai-text { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  /* FEATURES */
+  .features { padding: 5rem 4rem; border-top: 1px solid var(--border); }
+  .features-header { text-align: center; margin-bottom: 4rem; }
+  .features-header h2 { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.8rem; }
+  .features-header p { color: var(--muted); font-size: 1rem; }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .feature-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.25s; }
+  .feature-card:hover { border-color: var(--ink); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+  .feature-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem; }
+  .feature-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.6rem; }
+  .feature-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.6; }
+
+  /* CTA */
+  .cta { text-align: center; padding: 5rem 4rem; background: var(--ink); color: var(--paper); }
+  .cta h2 { font-family: 'Syne', sans-serif; font-size: 2.8rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 1rem; }
+  .cta p { color: #999; margin-bottom: 2rem; }
+  .btn-cta { background: var(--accent); color: #fff; padding: 0.9rem 2.5rem; border-radius: 100px; text-decoration: none; font-weight: 700; font-size: 1rem; display: inline-block; transition: all 0.2s; }
+  .btn-cta:hover { transform: scale(1.05); }
+
+  footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem; min-height: auto; }
+    .hero-visual { display: none; }
+    .features { padding: 3rem 1.5rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .cta { padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Spend<span>Sense</span></div>
+  <div class="nav-links">
+    <a href="/login">Sign In</a>
+    <a href="/register" class="btn-nav">Get Started</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">✦ AI-Powered Finance</div>
+    <h1>Track Smarter,<br>Spend <em>Better</em></h1>
+    <p>SpendSense uses machine learning to analyze your expenses, predict future spending, and give you personalized budget recommendations — all in one clean dashboard.</p>
+    <div class="hero-btns">
+      <a href="/register" class="btn-primary">Start Tracking Free →</a>
+      <a href="/login" class="btn-ghost">Already have an account?</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="dashboard-preview">
+      <div class="dp-header">
+        <div class="dp-title">May Overview</div>
+        <div class="dp-badge">✓ On Budget</div>
+      </div>
+      <div class="dp-stats">
+        <div class="dp-stat">
+          <div class="dp-stat-label">This Month</div>
+          <div class="dp-stat-value accent">₹14,280</div>
+        </div>
+        <div class="dp-stat">
+          <div class="dp-stat-label">AI Prediction</div>
+          <div class="dp-stat-value">₹15,900</div>
+        </div>
+      </div>
+      <div class="dp-bars">
+        <div class="dp-bar-row">
+          <div class="dp-bar-label">Food</div>
+          <div class="dp-bar-track"><div class="dp-bar-fill" style="width:72%;background:#e84b3a;"></div></div>
+        </div>
+        <div class="dp-bar-row">
+          <div class="dp-bar-label">Transport</div>
+          <div class="dp-bar-track"><div class="dp-bar-fill" style="width:45%;background:#c9a84c;"></div></div>
+        </div>
+        <div class="dp-bar-row">
+          <div class="dp-bar-label">Shopping</div>
+          <div class="dp-bar-track"><div class="dp-bar-fill" style="width:60%;background:#4a90d9;"></div></div>
+        </div>
+        <div class="dp-bar-row">
+          <div class="dp-bar-label">Bills</div>
+          <div class="dp-bar-track"><div class="dp-bar-fill" style="width:85%;background:#6b6659;"></div></div>
+        </div>
+      </div>
+      <div class="dp-ai">
+        <div class="dp-ai-label">✦ AI Insight</div>
+        <div class="dp-ai-text">Food spending is 18% above average. Meal prepping could save ₹800 next month.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-header">
+    <h2>Everything you need to master your money</h2>
+    <p>Built with Flask, SQLite, Scikit-learn & Chart.js</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fff3f2;">📊</div>
+      <h3>Visual Reports</h3>
+      <p>Beautiful charts showing category breakdowns, daily trends, and 6-month spending history powered by Chart.js.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#f0f7ff;">🤖</div>
+      <h3>AI Predictions</h3>
+      <p>Machine learning model trained on spending patterns predicts next month's expenses by category.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#f0fff4;">💡</div>
+      <h3>Smart Suggestions</h3>
+      <p>Personalized budget recommendations and spending alerts based on your unique financial patterns.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fffbf0;">🗂️</div>
+      <h3>Categories</h3>
+      <p>Organize expenses across 8 categories: Food, Transport, Health, Bills, Shopping, and more.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fdf0ff;">🔔</div>
+      <h3>Smart Alerts</h3>
+      <p>Real-time alerts when spending in any category exceeds healthy thresholds or budget limits.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#f0f8ff;">🔒</div>
+      <h3>Secure & Private</h3>
+      <p>Password hashing, session management, and user-isolated data ensure your finances stay private.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Ready to take control?</h2>
+  <p>Free to use. No credit card required.</p>
+  <a href="/register" class="btn-cta">Create Your Account</a>
+</section>
+
+<footer>© 2024 SpendSense — AI Expense Tracker. Built with Python, Flask & ♥</footer>
+</body>
+</html>

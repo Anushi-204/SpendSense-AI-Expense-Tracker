@@ -1,0 +1,37 @@
+month,category,amount,description
+1,Food,4500,Groceries and dining
+1,Transport,1200,Fuel and commute
+1,Entertainment,800,Movies and subscriptions
+1,Shopping,3200,Clothes and accessories
+1,Bills,2500,Electricity and internet
+1,Health,600,Medicine and checkup
+2,Food,4800,Groceries and dining
+2,Transport,1100,Fuel and commute
+2,Entertainment,1200,Movies and subscriptions
+2,Shopping,2800,Clothes and accessories
+2,Bills,2500,Electricity and internet
+2,Health,400,Medicine
+3,Food,5200,Groceries and dining
+3,Transport,1400,Fuel and commute
+3,Entertainment,600,Movies
+3,Shopping,4100,Electronics
+3,Bills,2700,Electricity and internet
+3,Health,900,Checkup and medicine
+4,Food,4600,Groceries and dining
+4,Transport,1300,Fuel and commute
+4,Entertainment,1000,Movies and subscriptions
+4,Shopping,2200,Clothes
+4,Bills,2500,Electricity and internet
+4,Health,300,Medicine
+5,Food,5000,Groceries and dining
+5,Transport,1200,Fuel and commute
+5,Entertainment,700,Subscriptions
+5,Shopping,3500,Shopping mall
+5,Bills,2600,Electricity and internet
+5,Health,800,Gym and medicine
+6,Food,4900,Groceries and dining
+6,Transport,1500,Fuel and travel
+6,Entertainment,1500,Vacation activities
+6,Shopping,5000,Vacation shopping
+6,Bills,2500,Electricity and internet
+6,Health,500,Medicine
