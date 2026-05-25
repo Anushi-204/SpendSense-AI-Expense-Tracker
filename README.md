@@ -72,13 +72,6 @@ AI_Expense_Tracker/
 ├── model/
 └── dataset/
 
-## Run Locally
-
-```bash
-pip install -r requirements.txt
-python app.py
-
-
 ## Future Enhancements
 
 - Export reports to PDF
@@ -96,3 +89,9 @@ python app.py
 - Secure User Authentication
 - REST API Development
 - Responsive UI Design
+
+## Run Locally
+
+```bash
+pip install -r requirements.txt
+python app.py
