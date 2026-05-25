@@ -1,4 +1,4 @@
-## SpendSense — AI Powered Expense
+## SpendSense — AI Powered Expense Tracker
 
 ## Overview
 SpendSense is an AI-powered expense tracking web application that helps users manage daily expenses, visualize spending patterns, and get machine learning-based financial predictions and smart budget suggestions.
