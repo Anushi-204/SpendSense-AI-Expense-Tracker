@@ -78,6 +78,7 @@ AI_Expense_Tracker/
 pip install -r requirements.txt
 python app.py
 
+
 ## Future Enhancements
 
 - Export reports to PDF
