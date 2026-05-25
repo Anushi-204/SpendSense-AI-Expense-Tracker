@@ -4,16 +4,16 @@
 SpendSense is an AI-powered expense tracking web application that helps users manage daily expenses, visualize spending patterns, and get machine learning-based financial predictions and smart budget suggestions.
 
 ## Technologies Used
-Python
-Flask
-SQLite
-HTML
-CSS
-JavaScript
-Pandas
-Scikit-learn
-Chart.js
-Machine Learning
+- Python
+- Flask
+- SQLite
+- HTML
+- CSS
+- JavaScript
+- Pandas
+- Scikit-learn
+- Chart.js
+- Machine Learning
 
 ## Features
 
